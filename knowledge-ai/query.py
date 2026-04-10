@@ -1,12 +1,8 @@
 from __future__ import annotations
 
 import argparse
-import sys
-from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
+from orchestrator.pipeline import RAGPipeline
 
 
 def main():
@@ -17,8 +13,6 @@ def main():
     parser.add_argument("--top-k", type=int, default=None, help="Override top_k from config")
     parser.add_argument("--config", default="config/config.yaml")
     args = parser.parse_args()
-
-    from orchestrator.pipeline import RAGPipeline
 
     pipeline = RAGPipeline(config_path=args.config)
     result = pipeline.query(args.question, kb_names=args.kb, source_filter=args.source, top_k=args.top_k)

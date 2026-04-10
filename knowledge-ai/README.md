@@ -9,7 +9,7 @@ Production-oriented, config-driven RAG platform for enterprise deployment with p
 - Pluggable ingestion modules for Confluence, GitHub, SharePoint, Tableau
 - Tableau REST API ingestion for workbooks, dashboards/views, and data sources
 - Local embedding (`sentence-transformers`) + local generation (`Ollama`)
-- API (`FastAPI`), CLI, and Streamlit dashboard
+- API (`FastAPI`) and CLI query paths
 - Retry logic for ingestion failures
 
 ## Project Structure
@@ -24,7 +24,6 @@ See code tree under:
 - `orchestrator/`
 - `api/`
 - `scripts/`
-- `ui/`
 - `query.py`
 
 ## Installation
@@ -33,24 +32,6 @@ cd knowledge-ai
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-```
-
-## Quick local test (fastest path)
-If you want to test end-to-end quickly without wiring enterprise connectors first:
-
-```bash
-# 1) install dependencies
-pip install -r requirements.txt
-
-# 2) ensure Ollama is running locally and model is available
-ollama pull mistral
-ollama serve
-
-# 3) load demo docs into all KB collections
-python scripts/load_demo_data.py
-
-# 4) query from CLI
-python query.py --kb engineering_kb "How does payroll integration work?"
 ```
 
 ## Configuration
@@ -108,19 +89,6 @@ POST `/query`
   "top_k": 5
 }
 ```
-
-## Dashboard (UI/UX)
-Run a local dashboard with ingestion buttons, KB/source filters, and rich context viewers:
-
-```bash
-streamlit run ui/dashboard.py
-```
-
-Dashboard highlights:
-- Multi-select KB querying (single, multi, all)
-- Source filter and `top_k` controls
-- One-click ingest selected KB or all KBs
-- Expandable result cards showing source metadata and content
 
 ## Guardrails
 - Generator prompt enforces context-only answers.
