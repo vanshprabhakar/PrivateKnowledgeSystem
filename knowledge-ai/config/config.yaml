@@ -1,0 +1,31 @@
+knowledge_bases:
+  hr_kb:
+    sources:
+      - confluence
+      - sharepoint
+    description: "HR policies and employee data"
+
+  engineering_kb:
+    sources:
+      - github
+      - confluence
+      - tableau
+    description: "Engineering docs, code, dashboards"
+
+  finance_kb:
+    sources:
+      - tableau
+      - sharepoint
+    description: "Finance dashboards and reports"
+
+global_settings:
+  chunk_size: 500
+  chunk_overlap: 50
+  top_k: 5
+  embedding_model: all-MiniLM-L6-v2
+  llm_model: mistral
+  chroma_path: ./data/chroma
+  ollama_base_url: http://localhost:11434
+  request_timeout_sec: 60
+  retries: 3
+  retry_backoff_sec: 2
